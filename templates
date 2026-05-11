@@ -1,0 +1,460 @@
+{"sections":{"main":{"type":"main-404","settings":{}}},"order":["main"]}
+{"sections":{"main":{"type":"main-article","blocks":{"featured_image":{"type":"featured_image","settings":{"image_height":"adapt"}},"title":{"type":"title","settings":{"blog_show_date":true,"blog_show_author":false}},"share":{"type":"share","settings":{"share_label":"Share"}},"content":{"type":"content","settings":{}}},"block_order":["featured_image","title","share","content"],"settings":{}}},"order":["main"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "layout": "collage",
+        "show_image": true,
+        "image_height": "medium",
+        "show_date": true,
+        "show_author": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+{
+  "sections": {
+    "cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "cart-footer": {
+      "type": "main-cart-footer",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 20,
+        "padding_bottom": 40
+      },
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {
+          }
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "subtotal",
+        "buttons"
+      ]
+    }
+  },
+  "order": 
+ "cart-footer"
+  ]
+}
+
+{"sections":{"banner":{"type":"main-collection-banner","disabled":true,"settings":{"show_collection_description":true,"show_collection_image":false,"color_scheme":"scheme-1"}},"product-grid":{"type":"main-collection-product-grid","settings":{"products_per_page":16,"columns_desktop":4,"columns_mobile":"2","color_scheme":"scheme-1","image_ratio":"portrait","image_shape":"default","show_secondary_image":true,"show_vendor":true,"show_rating":false,"quick_add":"bulk","enable_filtering":true,"filter_type":"horizontal","enable_sorting":true,"padding_top":36,"padding_bottom":36}}},"order":["banner","product-grid"]}
+[
+    "cart-items",{
+  "sections": {
+    "main": {
+      "type": "main-account",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+{
+  "sections": {
+    "main": {
+      "type": "main-activate-account",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+{
+  "sections": {
+    "main": {
+      "type": "main-addresses",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+{
+  "sections": {
+    "main": {
+      "type": "main-login",
+      "settings": {
+        "enable_shop_login_button": "true",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+{
+  "sections": {
+    "main": {
+      "type": "main-order",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+{
+  "sections": {
+    "main": {
+      "type": "main-register",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+{
+  "sections": {
+    "main": {
+      "type": "main-reset-password",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+  {% layout none %}
+
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_background }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {%- assign formatted_balance = gift_card.balance | money_without_trailing_zeros | strip_html -%}
+
+    <title>{{ 'gift_cards.issued.title' | t: value: formatted_balance, shop: shop.name }}</title>
+
+    <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
+    {{ content_for_header }}
+
+    {%- liquid
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+    %}
+
+    {% style %}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+
+      :root {
+        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-body-style: {{ settings.type_body_font.style }};
+        --font-body-weight: {{ settings.type_body_font.weight }};
+
+        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+        --font-heading-style: {{ settings.type_header_font.style }};
+        --font-heading-weight: {{ settings.type_header_font.weight }};
+
+        --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+        --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
+
+        {% assign scheme = settings.color_schemes | first %}
+        --color-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+        {% if scheme.settings.background_gradient != empty -%}
+          --gradient-background: {{ scheme.settings.background_gradient }};
+        {%- else -%}
+          --gradient-background: {{ scheme.settings.background }};
+        {%- endif %}
+        --color-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+        --color-button: {{ scheme.settings.button.red }},{{ scheme.settings.button.green }},{{ scheme.settings.button.blue }};
+        --color-button-label: {{ scheme.settings.button_label.red }},{{ scheme.settings.button_label.green }},{{ scheme.settings.button_label.blue }};
+        --color-secondary-button-label: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }};
+        --color-shadow: {{ scheme.settings.shadow.red }},{{ scheme.settings.shadow.green }},{{ scheme.settings.shadow.blue }};
+
+        {% assign badge_scheme_id = settings.sold_out_badge_color_scheme | append: '' %}
+        {% assign badge_scheme = settings.color_schemes[badge_scheme_id] %}
+        --color-soldout-badge: {{ badge_scheme.settings.background.red }},{{ badge_scheme.settings.background.green }},{{ badge_scheme.settings.background.blue }};
+        --color-soldout-badge-label: {{ badge_scheme.settings.text.red }},{{ badge_scheme.settings.text.green }},{{ badge_scheme.settings.text.blue }};
+
+        --page-width: {{ settings.page_width | divided_by: 10 }}rem;
+        --page-width-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
+
+        --buttons-radius: {{ settings.buttons_radius }}px;
+        --buttons-border-width: {% if settings.buttons_border_opacity > 0 %}{{ settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+        --buttons-border-opacity: {{ settings.buttons_border_opacity | divided_by: 100.0 }};
+        --buttons-shadow-opacity: {{ settings.buttons_shadow_opacity | divided_by: 100.0 }};
+        --buttons-shadow-horizontal-offset: {{ settings.buttons_shadow_horizontal_offset }}px;
+        --buttons-shadow-vertical-offset: {{ settings.buttons_shadow_vertical_offset }}px;
+        --buttons-shadow-blur-radius: {{ settings.buttons_shadow_blur }}px;
+        --buttons-border-offset: {% if settings.buttons_radius > 0 or settings.buttons_shadow_opacity > 0 %}0.3{% else %}0{% endif %}px;
+
+        --inputs-radius: {{ settings.inputs_radius }}px;
+        --inputs-border-width: {{ settings.inputs_border_thickness }}px;
+        --inputs-border-opacity: {{ settings.inputs_border_opacity | divided_by: 100.0 }};
+        --inputs-shadow-opacity: {{ settings.inputs_shadow_opacity | divided_by: 100.0 }};
+        --inputs-shadow-horizontal-offset: {{ settings.inputs_shadow_horizontal_offset }}px;
+        --inputs-shadow-vertical-offset: {{ settings.inputs_shadow_vertical_offset }}px;
+        --inputs-shadow-blur-radius: {{ settings.inputs_shadow_blur }}px;
+      }
+    {% endstyle %}
+
+    {%- unless settings.type_body_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+
+    {{ 'template-giftcard.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body class="gradient gift-card">
+    <header>
+      <div class="gift-card__price">
+        <h1>
+          {% if settings.currency_code_enabled %}
+            {{ gift_card.balance | money_with_currency }}
+          {% else %}
+            {{ gift_card.balance | money }}
+          {% endif %}
+        </h1>
+        {%- if gift_card.enabled == false or gift_card.expired -%}
+          <p class="badge badge--expired">{{ 'gift_cards.issued.expired' | t }}</p>
+        {%- endif -%}
+      </div>
+      {% if gift_card.expires_on %}
+        {%- assign gift_card_expiration_date = gift_card.expires_on | date: '%B %e, %Y' -%}
+        <p class="gift-card__text">
+          {{ 'gift_cards.issued.expiration_date' | t: expires_on: gift_card_expiration_date }}
+        </p>
+      {% endif %}
+    </header>
+
+    <main>
+      <div class="gift-card__image-wrapper">
+        {%- if settings.logo != blank -%}
+          {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+          {{ settings.logo | image_url: width: 570 | image_tag: class: 'gift-card__image', alt: logo_alt }}
+        {%- else %}
+          <img
+            class="gift-card__image"
+            src="{{ 'gift-card/card.svg' | shopify_asset_url }}"
+            alt=""
+            height="{{ 570 | divided_by: 1.5 }}"
+            width="570"
+            loading="eager"
+          >
+        {%- endif %}
+      </div>
+      <h2>{{ shop.name }}</h2>
+      <div class="gift-card__text-wrapper">
+        <p class="gift-card__text">{{ 'gift_cards.issued.how_to_use_gift_card' | t }}</p>
+      </div>
+      <p id="gift-card-code" class="gift-card__number">{{ gift_card.code | format_code }}</p>
+      <div class="gift-card__qr-code" data-identifier="{{ gift_card.qr_identifier }}"></div>
+      {%- if gift_card.pass_url -%}
+        <a href="{{ gift_card.pass_url }}" class="gift_card__apple-wallet no-print">
+          <img
+            src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+            width="120"
+            height="40"
+            alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+            loading="lazy"
+          >
+        </a>
+      {%- endif -%}
+      <div class="gift-card__buttons no-print">
+        <span class="gift-card__copy-success form__message" role="status"></span>
+        <template>
+          <span class="svg-wrapper">
+            {{- 'icon-success.svg' | inline_asset_content -}}
+          </span>
+          {{ 'gift_cards.issued.copy_code_success' | t }}
+        </template>
+        <button class="button gift-card__copy-button">{{ 'gift_cards.issued.copy_code' | t }}</button>
+        <a
+          href="{{ shop.url }}"
+          class="button button--secondary"
+          target="_blank"
+          rel="noopener"
+          aria-describedby="a11y-new-window-message"
+        >
+          {{ 'gift_cards.issued.shop_link' | t }}
+        </a>
+      </div>
+    </main>
+
+    <div hidden>
+      <span id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</span>
+    </div>
+  </body>
+</html>
+
+<script>
+  var string = { qrImageAlt: {{ 'gift_cards.issued.qr_image_alt' | t | json }} };
+  document.addEventListener('DOMContentLoaded', function() {
+   new QRCode( document.querySelector('.gift-card__qr-code'), {
+    text: document.querySelector('.gift-card__qr-code').dataset.identifier,
+    width: 72,
+    height: 72,
+    imageAltText: string.qrImageAlt
+    });
+  });
+  var template = document.getElementsByTagName("template")[0];
+  var clonedTemplate = template.content.cloneNode(true);
+  var isMessageDisplayed = false
+  document
+  .querySelector('.gift-card__copy-button')
+  .addEventListener('click', () => {
+    navigator.clipboard.writeText(document.getElementById('gift-card-code').innerText).then(function () {
+      if (!isMessageDisplayed) {
+        document.querySelector('.gift-card__copy-success').appendChild(clonedTemplate);
+        isMessageDisplayed = true
+      }
+    });
+  });
+</script>
+
+{"sections":{"image_banner":{"type":"image-banner","blocks":{"button":{"type":"buttons","settings":{"button_label_1":"Shop Now","button_link_1":"shopify:\/\/collections\/all","button_style_secondary_1":true,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["button"],"settings":{"image":"shopify:\/\/shop_images\/Gemini_Generated_Image_4fg2qa4fg2qa4fg2_9873dfa8-bb7e-4b80-aac0-59daad1f35e3.png","image_overlay_opacity":0,"image_height":"adapt","image_behavior":"none","desktop_content_position":"bottom-center","desktop_content_alignment":"center","show_text_box":false,"color_scheme":"scheme-3","stack_images_on_mobile":false,"mobile_content_alignment":"center","show_text_below":false}},"collection_list_apq7kc":{"type":"collection-list","blocks":{"featured_collection_LmfURg":{"type":"featured_collection","settings":{"collection":"earings"}},"featured_collection_UcqTLz":{"type":"featured_collection","settings":{"collection":"necklace"}},"featured_collection_bNUngT":{"type":"featured_collection","settings":{"collection":"rings"}},"featured_collection_UGp8Ew":{"type":"featured_collection","settings":{"collection":"bracelet"}}},"block_order":["featured_collection_LmfURg","featured_collection_UcqTLz","featured_collection_bNUngT","featured_collection_UGp8Ew"],"name":"t:sections.collection-list.presets.name","settings":{"title":"<em><strong>GOLD PLATED PIECES<\/strong><\/em>","heading_size":"h1","image_ratio":"adapt","columns_desktop":6,"color_scheme":"","show_view_all":false,"columns_mobile":"2","swipe_on_mobile":true,"padding_top":36,"padding_bottom":36}},"collection_list_QLeUyF":{"type":"collection-list","blocks":{"featured_collection_L3X7BJ":{"type":"featured_collection","settings":{"collection":"studs"}},"featured_collection_q4UDFn":{"type":"featured_collection","settings":{"collection":"pendants"}},"featured_collection_4xntWB":{"type":"featured_collection","settings":{"collection":"bracelets"}},"featured_collection_h7j7pD":{"type":"featured_collection","settings":{"collection":"watches"}}},"block_order":["featured_collection_L3X7BJ","featured_collection_q4UDFn","featured_collection_4xntWB","featured_collection_h7j7pD"],"name":"t:sections.collection-list.presets.name","settings":{"title":"<em><strong>SILVER PLATED PIECES<\/strong><\/em>","heading_size":"h1","image_ratio":"square","columns_desktop":6,"color_scheme":"","show_view_all":false,"columns_mobile":"2","swipe_on_mobile":true,"padding_top":36,"padding_bottom":36}},"image_with_text_LA34kM":{"type":"image-with-text","name":"t:sections.image-with-text.presets.name","settings":{"image":"shopify:\/\/shop_images\/1000048450.png","height":"adapt","desktop_image_width":"medium","layout":"image_first","image_behavior":"ambient","content_layout":"no-overlap","desktop_content_position":"top","desktop_content_alignment":"left","mobile_content_alignment":"center","section_color_scheme":"scheme-1","color_scheme":"","padding_top":36,"padding_bottom":36}},"newsletter_m8yUeP":{"type":"newsletter","blocks":{"heading_JdmbcN":{"type":"heading","settings":{"heading":"<em><strong>Become AN EMAIL MEMBER<\/strong><\/em>","heading_size":"h0"}},"paragraph_6tRweN":{"type":"paragraph","settings":{"text":"<ul><li><strong>Be the first to visit our latest collections and limited-edition pieces.<\/strong><\/li><li><strong>Enjoy discounts and promotional offers for our store members only.<\/strong><\/li><li><strong>Enjoy gifts on special occasions and giveaways.<\/strong><\/li><\/ul><p><\/p><h2><em><strong>Sign Up 📨<\/strong><\/em><\/h2>"}},"email_form_TqAK3J":{"type":"email_form","settings":{}}},"block_order":["heading_JdmbcN","paragraph_6tRweN","email_form_TqAK3J"],"name":"t:sections.newsletter.presets.name","settings":{"color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":52}},"featured_collection_mbA9Yg":{"type":"featured-collection","name":"t:sections.featured-collection.presets.name","settings":{"collection":"products","products_to_show":8,"title":"<strong>BESTSELLERS<\/strong>","heading_size":"h1","description":"","show_description":false,"description_style":"body","columns_desktop":4,"enable_desktop_slider":true,"full_width":false,"show_view_all":true,"view_all_style":"solid","color_scheme":"","image_ratio":"portrait","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"quick_add":"bulk","columns_mobile":"2","swipe_on_mobile":true,"padding_top":36,"padding_bottom":36}},"slideshow_4Y7kMx":{"type":"slideshow","name":"t:sections.slideshow.presets.name","settings":{"layout":"full_bleed","slide_height":"medium","slider_visual":"counter","auto_rotate":false,"change_slides_speed":5,"image_behavior":"none","show_text_below":true,"accessibility_info":"Slideshow about our brand"}},"rich_text_pznwcw":{"type":"rich-text","blocks":{"button_th3A4V":{"type":"button","settings":{"button_label":"SHOP OUR BESTSELLERS","button_link":"shopify:\/\/collections\/all","button_style_secondary":true,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["button_th3A4V"],"name":"t:sections.rich-text.presets.name","settings":{"desktop_content_position":"center","content_alignment":"center","color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":52}},"image_banner_UQzrrQ":{"type":"image-banner","blocks":{"heading_CzagXp":{"type":"heading","settings":{"heading":"<em>OUR GOAL & MISSION<\/em>","heading_size":"h1"}},"text_ydgCq6":{"type":"text","settings":{"text":"<em>Our goal is to craft premium jewellery that blends elegance and luxury, while our mission is to empower individuals with pieces that celebrate beauty, confidence, and unique style.<\/em>","text_style":"body"}},"buttons_f68XRb":{"type":"buttons","settings":{"button_label_1":"CONTACT US","button_link_1":"shopify:\/\/pages\/contact-1","button_style_secondary_1":true,"button_label_2":"","button_link_2":"shopify:\/\/pages\/email-page","button_style_secondary_2":false}}},"block_order":["heading_CzagXp","text_ydgCq6","buttons_f68XRb"],"name":"t:sections.image-banner.presets.name","settings":{"image":"shopify:\/\/shop_images\/1000048468.png","image_overlay_opacity":0,"image_height":"medium","image_behavior":"fixed","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":true,"color_scheme":"","stack_images_on_mobile":true,"mobile_content_alignment":"center","show_text_below":true}},"collapsible_content_gBdmLT":{"type":"collapsible-content","blocks":{"collapsible_row_YTPFL4":{"type":"collapsible_row","settings":{"heading":"Do you offer free shipping?","icon":"question_mark","row_content":"<p>Yes, free shipping is available on all orders worldwide.<\/p>","page":""}},"collapsible_row_BzpK3r":{"type":"collapsible_row","settings":{"heading":"What special offers are available?","icon":"question_mark","row_content":"<p>Buy 2 items and get a free gift 🎁. Email subscribers enjoy exclusive discounts and early access to sales.<\/p>","page":""}},"collapsible_row_ajHfrM":{"type":"collapsible_row","settings":{"heading":"What products do you offer?","icon":"question_mark","row_content":"<p>We offer premium earrings, necklaces, rings, bracelets and watches for women.<\/p>","page":""}},"collapsible_row_tc7ECC":{"type":"collapsible_row","settings":{"heading":"How can I contact DrawnWay?","icon":"question_mark","row_content":"<p>Via email (drawnway@gmail.com) <strong>or<\/strong> WhatsApp (7230905395)<\/p>","page":""}}},"block_order":["collapsible_row_YTPFL4","collapsible_row_BzpK3r","collapsible_row_ajHfrM","collapsible_row_tc7ECC"],"name":"t:sections.collapsible_content.presets.name","settings":{"caption":"","heading":"<em><strong>FAQ'S<\/strong><\/em>","heading_size":"h1","heading_alignment":"center","layout":"none","container_color_scheme":"","color_scheme":"","open_first_collapsible_row":false,"image_ratio":"adapt","desktop_layout":"image_second","padding_top":36,"padding_bottom":36}},"multirow_U9eRRM":{"type":"multirow","blocks":{"row_zPyAWK":{"type":"row","settings":{"image":"shopify:\/\/shop_images\/rn-image_picker_lib_temp_fdba783d-21e5-4235-b397-72f883231007.gif","caption":"","heading":"BLOG POST ✴️","text":"<p><em>Feel the aura of beauty and grace surround you as each piece radiates luxury and confidence.<\/em><\/p>","button_label":"SEE BLOG POST ➡️","button_link":"shopify:\/\/collections\/all"}},"row_7kFM94":{"type":"row","settings":{"image":"shopify:\/\/shop_images\/51JPOevG3VL._SY695.jpg","caption":"","heading":"BLOG POST ✴️","text":"<p><em>Feel the aura of beauty and grace surround you as each piece radiates luxury and confidence.<\/em><\/p>","button_label":"SEE BLOG POST ➡️","button_link":"shopify:\/\/collections\/all"}}},"block_order":["row_zPyAWK","row_7kFM94"],"name":"t:sections.multirow.presets.name","settings":{"image_height":"medium","desktop_image_width":"medium","image_layout":"alternate-left","heading_size":"h1","text_style":"body","button_style":"secondary","desktop_content_position":"middle","desktop_content_alignment":"left","mobile_content_alignment":"left","section_color_scheme":"","row_color_scheme":"","padding_top":36,"padding_bottom":36}}},"order":["image_banner","collection_list_apq7kc","collection_list_QLeUyF","image_with_text_LA34kM","newsletter_m8yUeP","featured_collection_mbA9Yg","slideshow_4Y7kMx","rich_text_pznwcw","image_banner_UQzrrQ","collapsible_content_gBdmLT","multirow_U9eRRM"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "settings": {
+        "title": "Collections",
+        "sort": "alphabetical",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "columns_mobile": "2"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "heading": "",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "form"
+  ]
+}
+
+{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"padding_top":28,"padding_bottom":28}},"image_banner_WEUeVB":{"type":"image-banner","blocks":{"heading_7f7XEb":{"type":"heading","settings":{"heading":"Become An Email Member Now","heading_size":"h1"}},"text_iLGE9x":{"type":"text","settings":{"text":"<em><strong>Join our email-member & get weekly updates<\/strong><\/em>","text_style":"body"}}},"block_order":["heading_7f7XEb","text_iLGE9x"],"name":"t:sections.image-banner.presets.name","settings":{"image":"shopify:\/\/shop_images\/1000048534.png","image_overlay_opacity":20,"image_height":"small","image_behavior":"none","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":false,"color_scheme":"","stack_images_on_mobile":true,"mobile_content_alignment":"center","show_text_below":false}},"newsletter_GmCL4D":{"type":"newsletter","blocks":{"heading_qHkapF":{"type":"heading","settings":{"heading":"<em><strong>Become AN EMAIL MEMBER<\/strong><\/em>","heading_size":"h1"}},"paragraph_NwxKEJ":{"type":"paragraph","settings":{"text":"<ul><li><strong>Be the first to visit our latest collections and limited-edition pieces.<\/strong><\/li><li><strong>Enjoy discounts and promotional offers for our store members only.<\/strong><\/li><li><strong>Enjoy gifts on special occasions and giveaways.<\/strong><\/li><\/ul><p><\/p><h2><em><strong>Sign Up 📨<\/strong><\/em><\/h2>"}},"email_form_D8wHDB":{"type":"email_form","settings":{}}},"block_order":["heading_qHkapF","paragraph_NwxKEJ","email_form_D8wHDB"],"name":"t:sections.newsletter.presets.name","settings":{"color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":52}}},"order":["main","image_banner_WEUeVB","newsletter_GmCL4D"]}
+{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"padding_top":28,"padding_bottom":28}},"image_banner_n3NKMK":{"type":"image-banner","blocks":{"heading_rcczAx":{"type":"heading","settings":{"heading":"Become An Email Member Now","heading_size":"h1"}},"text_nHaymh":{"type":"text","settings":{"text":"<em><strong>Join our email-member & get weekly updates<\/strong><\/em>","text_style":"body"}}},"block_order":["heading_rcczAx","text_nHaymh"],"name":"t:sections.image-banner.presets.name","settings":{"image":"shopify:\/\/shop_images\/1000048534.png","image_overlay_opacity":20,"image_height":"small","image_behavior":"none","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":false,"color_scheme":"","stack_images_on_mobile":true,"mobile_content_alignment":"center","show_text_below":false}},"newsletter_A9C8Pk":{"type":"newsletter","blocks":{"heading_EbYMYD":{"type":"heading","settings":{"heading":"<em><strong>Become AN EMAIL MEMBER<\/strong><\/em>","heading_size":"h1"}},"paragraph_8ABHLf":{"type":"paragraph","settings":{"text":"<ul><li><strong>Be the first to visit our latest collections and limited-edition pieces.<\/strong><\/li><li><strong>Enjoy discounts and promotional offers for our store members only.<\/strong><\/li><li><strong>Enjoy gifts on special occasions and giveaways.<\/strong><\/li><\/ul><p><\/p><h2><em><strong>Sign Up 📨<\/strong><\/em><\/h2>"}},"email_form_eRLqpB":{"type":"email_form","settings":{}}},"block_order":["heading_EbYMYD","paragraph_8ABHLf","email_form_eRLqpB"],"name":"t:sections.newsletter.presets.name","settings":{"color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":52}}},"order":["main","image_banner_n3NKMK","newsletter_A9C8Pk"]}
+{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"padding_top":28,"padding_bottom":28}},"image_banner_n3NKMK":{"type":"image-banner","blocks":{"heading_rcczAx":{"type":"heading","settings":{"heading":"Become An Email Member Now","heading_size":"h1"}},"text_nHaymh":{"type":"text","settings":{"text":"<em><strong>Join our email-member & get weekly updates<\/strong><\/em>","text_style":"body"}}},"block_order":["heading_rcczAx","text_nHaymh"],"name":"t:sections.image-banner.presets.name","settings":{"image":"shopify:\/\/shop_images\/1000048534.png","image_overlay_opacity":20,"image_height":"small","image_behavior":"none","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":false,"color_scheme":"","stack_images_on_mobile":true,"mobile_content_alignment":"center","show_text_below":false}},"newsletter_A9C8Pk":{"type":"newsletter","blocks":{"heading_EbYMYD":{"type":"heading","settings":{"heading":"<em><strong>Become AN EMAIL MEMBER<\/strong><\/em>","heading_size":"h1"}},"paragraph_8ABHLf":{"type":"paragraph","settings":{"text":"<ul><li><strong>Be the first to visit our latest collections and limited-edition pieces.<\/strong><\/li><li><strong>Enjoy discounts and promotional offers for our store members only.<\/strong><\/li><li><strong>Enjoy gifts on special occasions and giveaways.<\/strong><\/li><\/ul><p><\/p><h2><em><strong>Sign Up 📨<\/strong><\/em><\/h2>"}},"email_form_eRLqpB":{"type":"email_form","settings":{}}},"block_order":["heading_EbYMYD","paragraph_8ABHLf","email_form_eRLqpB"],"name":"t:sections.newsletter.presets.name","settings":{"color_scheme":"","full_width":true,"padding_top":40,"padding_bottom":52}}},"order":["main","image_banner_n3NKMK","newsletter_A9C8Pk"]}
+{"layout":"password","sections":{"main":{"type":"email-signup-banner","blocks":{"heading":{"type":"heading","settings":{"heading":"Opening soon","heading_size":"h1"}},"paragraph":{"type":"paragraph","settings":{"text":"<p>Be the first to know when we launch.<\/p>","text_style":"body"}},"email_form":{"type":"email_form","settings":{}}},"block_order":["heading","paragraph","email_form"],"settings":{"show_background_image":true,"image_overlay_opacity":0,"image_height":"medium","desktop_content_position":"middle-center","desktop_content_alignment":"center","show_text_box":true,"color_scheme":"scheme-1","mobile_content_alignment":"center","show_text_below":true}}},"order":["main"]}
+{"sections":{"main":{"type":"main-product","blocks":{"share":{"type":"share","settings":{"share_label":"Share"}},"title":{"type":"title","settings":{}},"doran_product_reviews_rating_widget_mthpkP":{"type":"shopify:\/\/apps\/doran-product-reviews\/blocks\/rating-widget\/ca90c3ee-bc39-4c25-90cd-fdf0519c6d11","settings":{"is_hide_detail":false,"is_display_questions":false,"class_name":"","is_hide_if_no_reviews":false,"is_use_shopify_font":false,"shopify_font":"sans_serif_n4"}},"price":{"type":"price","settings":{}},"inventory_98mBHE":{"type":"inventory","settings":{"text_style":"body","inventory_threshold":10,"show_inventory_quantity":true}},"variant_picker":{"type":"variant_picker","settings":{"picker_type":"button","swatch_shape":"circle"}},"quantity_selector":{"type":"quantity_selector","settings":{}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":true,"show_gift_card_recipient":true}},"custom_liquid_YT4Y7A":{"type":"custom_liquid","settings":{"custom_liquid":"<div class=\"trust-badges-grid\">\n  <!-- 1. Free Shipping -->\n  <div class=\"trust-badge\">\n    <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"icon\">\n      <path d=\"M3 3h13v13H3zM16 8h4l1 4v4h-5z\" \/>\n      <circle cx=\"7\" cy=\"18\" r=\"2\" \/>\n      <circle cx=\"17\" cy=\"18\" r=\"2\" \/>\n      <path d=\"M3 13h10\" \/>\n    <\/svg>\n    <span>FREE SHIPPING<\/span>\n  <\/div>  <!-- 2. Cash on Delivery -->  <div class=\"trust-badge\">\n    <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"icon\">\n      <rect x=\"2\" y=\"6\" width=\"20\" height=\"12\" rx=\"2\" ry=\"2\" \/>\n      <circle cx=\"12\" cy=\"12\" r=\"3\" \/>\n      <path d=\"M2 12h1m18 0h1M12 6v1m0 10v1\" \/>\n    <\/svg>\n    <span>CASH ON DELIVERY<\/span>\n  <\/div>  <!-- 3. Quality Assured -->  <div class=\"trust-badge\">\n    <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"icon\">\n      <path d=\"M12 2l3 6 6 .9-4.5 4.4 1 6.3L12 16l-5.5 3.6 1-6.3L3 8.9l6-.9 3-6z\" \/>\n    <\/svg>\n    <span>QUALITY ASSURED<\/span>\n  <\/div>  <!-- 4. 5-Days Returnable -->  <div class=\"trust-badge\">\n    <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"icon\">\n      <polyline points=\"1 4 1 10 7 10\" \/>\n      <path d=\"M3.51 15a9 9 0 1 0 .49-5\" \/>\n    <\/svg>\n    <span>5-DAYS RETURNABLE<\/span>\n  <\/div>\n<\/div><style>\n  .trust-badges-grid {\n    display: grid;\n    grid-template-columns: repeat(2,1fr);\n    gap: 2rem 2.5rem;\n    justify-items: center;\n    margin-top: 1.5rem;\n    background-color: #f5f5f5; \/* light grey background *\/\n    padding: 2rem;\n    border-radius: 8px;\n  }\n\n  .trust-badge {\n    display: flex;\n    align-items: center;\n    gap: 0.6rem;\n    font-size: 0.95rem;\n    color: #000;\n    text-align: left;\n  }\n\n  .trust-badge .icon {\n    width: 28px;\n    height: 28px;\n    stroke: #000;\n    flex-shrink: 0;\n  }\n\n  @media (max-width: 480px) {\n    .trust-badges-grid { gap: 1.2rem 1.5rem; }\n    .trust-badge { font-size: 0.9rem; }\n  }\n<\/style>"}},"description":{"type":"description","settings":{}}},"block_order":["share","title","doran_product_reviews_rating_widget_mthpkP","price","inventory_98mBHE","variant_picker","quantity_selector","buy_buttons","custom_liquid_YT4Y7A","description"],"settings":{"enable_sticky_info":true,"color_scheme":"scheme-1","media_size":"large","constrain_to_viewport":true,"media_fit":"contain","gallery_layout":"stacked","mobile_thumbnails":"hide","media_position":"left","image_zoom":"lightbox","hide_variants":true,"enable_video_looping":false,"padding_top":36,"padding_bottom":12}},"collage_WUndAr":{"type":"collage","name":"t:sections.collage.presets.name","settings":{"heading":"","heading_size":"h1","desktop_layout":"left","mobile_layout":"column","card_styles":"product-card-wrapper","color_scheme":"","padding_top":36,"padding_bottom":36}},"collage_Mxf3PB":{"type":"collage","name":"t:sections.collage.presets.name","settings":{"heading":"","heading_size":"h1","desktop_layout":"left","mobile_layout":"column","card_styles":"product-card-wrapper","color_scheme":"","padding_top":36,"padding_bottom":36}},"collage_Ch9MUW":{"type":"collage","name":"t:sections.collage.presets.name","settings":{"heading":"","heading_size":"h1","desktop_layout":"left","mobile_layout":"column","card_styles":"product-card-wrapper","color_scheme":"","padding_top":36,"padding_bottom":36}},"collage_kyKqmb":{"type":"collage","name":"t:sections.collage.presets.name","settings":{"heading":"","heading_size":"h1","desktop_layout":"left","mobile_layout":"column","card_styles":"product-card-wrapper","color_scheme":"","padding_top":36,"padding_bottom":36}},"related-products":{"type":"related-products","disabled":true,"settings":{"heading":"You may also like","heading_size":"h2","products_to_show":4,"columns_desktop":4,"columns_mobile":"2","color_scheme":"scheme-1","image_ratio":"square","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"padding_top":36,"padding_bottom":28}},"1755254681fea8db3e":{"type":"apps","blocks":{"doran_product_reviews_product_widget_dUtYpC":{"type":"shopify:\/\/apps\/doran-product-reviews\/blocks\/product-widget\/ca90c3ee-bc39-4c25-90cd-fdf0519c6d11","settings":{"topPadding":36,"bottomPadding":36,"is_hide_if_no_reviews":false,"is_use_shopify_font":false,"shopify_font":"sans_serif_n4"}}},"block_order":["doran_product_reviews_product_widget_dUtYpC"],"settings":{"include_margins":true}},"featured_collection_ewtehU":{"type":"featured-collection","name":"t:sections.featured-collection.presets.name","settings":{"collection":"products","products_to_show":10,"title":"Related Products","heading_size":"h1","description":"","show_description":false,"description_style":"body","columns_desktop":6,"enable_desktop_slider":true,"full_width":false,"show_view_all":true,"view_all_style":"solid","color_scheme":"","image_ratio":"square","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"quick_add":"standard","columns_mobile":"2","swipe_on_mobile":true,"padding_top":36,"padding_bottom":36}},"175525484120ca4840":{"type":"apps","blocks":{"doran_product_reviews_question_widget_cJHgnU":{"type":"shopify:\/\/apps\/doran-product-reviews\/blocks\/question-widget\/ca90c3ee-bc39-4c25-90cd-fdf0519c6d11","settings":{"topPadding":36,"bottomPadding":36,"is_use_shopify_font":false,"shopify_font":"sans_serif_n4"}}},"block_order":["doran_product_reviews_question_widget_cJHgnU"],"settings":{"include_margins":true}}},"order":["main","collage_WUndAr","collage_Mxf3PB","collage_Ch9MUW","collage_kyKqmb","related-products","1755254681fea8db3e","featured_collection_ewtehU","175525484120ca4840"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-search",
+      "settings": {
+        "columns_desktop": 4,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "article_show_date": true,
+        "article_show_author": false,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
